@@ -4,19 +4,15 @@
     $db_user="root";
     $db_password=null;
     $db_name= "news";
+    $mysql = new mysqli();
 
-    $mysql = new mysqli($servername, $username, $password);
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+    try{
+        $mysql->real_connect($host, $db_user, $db_password, $db_name);
+    }catch(Exception $e){
+        $mysql->real_connect($host, $db_user, $db_password);
     }
-    $sql = `CREATE DATABASE IF NOT EXISTS $db_name`;
-    if ($conn->query($sql) === TRUE) {
-    echo "Database created successfully";
-    } else {
-    echo "Error creating database: " . $conn->error;
+    if ($mysql->connect_error) {
+        die("Connection failed: " . $mysql->connect_error);
     }
-
-    $conn->close();
 
 ?>
